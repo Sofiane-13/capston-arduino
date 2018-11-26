@@ -68,20 +68,36 @@ require('getmac').getMac(function(err, macAddress){
 		etat++;
 	}
 	setInterval(function(){
-	datetime = new Date();
+	//datetime = new Date();
 
 	
-    var twoHoursLater = new Date(datetime.getTime() + (1*1000*60*60));
 	handlingEtat();
 
 	message = JSON.stringify({
-	streetId:deviceId,
-	north : nord,
-	est : est,
-	ouest : ouest,
-	sud : sud,
-	date : twoHoursLater
+	streetId:deviceId,	
 	});
-	client.publish('street/server', message);
-	}, 15000);
+	client.publish('street/streetId', message);
+
+	message = JSON.stringify({
+	north:nord,	
+	});
+	client.publish('street/north', message);
+
+	message = JSON.stringify({
+	sud:sud,	
+	});
+	client.publish('street/sud', message);
+	
+	message = JSON.stringify({
+	est:est,	
+	});
+	client.publish('street/est', message);
+
+	message = JSON.stringify({
+	ouest:ouest,	
+	});
+	client.publish('street/ouest', message);
+	
+
+}, 15000);
    });
